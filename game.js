@@ -7,9 +7,9 @@ kaboom({
 });
 
 // 2. Load Assets
-// Ensure "wizard.png" is in the same folder!
 loadSprite("wizard", "./assets/wizard-final.png");
 loadSound("theme", "./assets/music.mp3");
+loadSprite("robot", "./assets/npc.png");
 
 // 3. Define the Main Scene
 scene("main", () => {
@@ -55,6 +55,59 @@ scene("main", () => {
     // Camera Follow
     player.onUpdate(() => {
         camPos(player.pos);
+    });
+
+    const robot = add([
+        sprite("robot"), // Use your new image!
+        pos(center().add(150, -100)), // 120px to the right
+        anchor("center"),
+        area({ scale: 0.1 }), // Hitbox
+        body({ isStatic: true }), // Won't move
+        scale(0.5), // Make it big enough to see
+        "npc" // Tag for collision
+    ]);
+
+    // The Speech Bubble (Floating above the sprite)
+    const bubble = add([
+        rect(160, 50, { radius: 4 }),
+        pos(robot.pos.sub(0, 70)), // Adjusted height for sprite
+        anchor("center"),
+        color(255, 255, 255),
+        opacity(0), // Start invisible
+        z(10) 
+    ]);
+
+    const bubbleText = bubble.add([
+        text("", { size: 10, font: "monospace", width: 150, align: "center", lineSpacing: 6 }),
+        anchor("center"),
+        color(0, 0, 0),
+    ]);
+
+    // Robot Interaction Logic (Kept the same)
+    const dialogues = [
+        "Beep boop. Kaya runs on coffee and Python.",
+        "Did you know? I am a finite state machine.",
+        "Syntax error: You are too awesome.",
+        "My favorite library is spaCy. It is very fast.",
+        "Resume.pdf located at /home/user/downloads...",
+        "definitely hire him ;)"
+    ];
+
+    let isTalking = false;
+
+    player.onCollide("npc", () => {
+        if (isTalking) return;
+        isTalking = true;
+
+        bubbleText.text = dialogues[Math.floor(Math.random() * dialogues.length)];
+        
+        // Pop In
+        bubble.opacity = 1;
+
+        wait(1.5, () => {
+            bubble.opacity = 0;
+            isTalking = false;
+        });
     });
 
     // --- ORB CREATION LOGIC ---

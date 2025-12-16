@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaya Meriç Engin | Interactive Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="ui-layer">
+        <div class="top-bar">
+            <div class="header">
+                <h1 style="margin:0">Kaya Meriç Engin</h1>
+                <span class="subtitle">M.Sc. Computational Linguistics, Software Engineer & AI Researcher</span>
+            </div>
+            <a href="./assets/resume.pdf" target="_blank" class="resume-btn">📄 Get Resume</a>
+        </div>
+        <div class="controls">
+            Use <b>ARROW KEYS</b> to move • Walk into Orbs
+            <button id="mute-btn" class="controls">🔊 ON</button>
+        </div>
+    </div>
+
+    <div id="modal-overlay">
+        <div id="modal-box">
+            <div id="m-content-area">
+                <h2 id="m-title">Title</h2>
+                <div id="m-content">Content</div>
+                <button class="close-btn" onclick="window.closeModal()">Close (ESC)</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="game.js"></script>
+</body>
+</html>

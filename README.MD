@@ -1,6 +1,8 @@
 # 🧙‍♂️ Kaya's Interactive Wizard Portfolio
 
 > A gamified 2D portfolio built with JavaScript and Kaboom.js.
+
+![Gameplay Screenshot](./assets/gameplay.png)
 > **[Play the Live Demo Here](https://mericengin.github.io/wizard-portfolio/)**
 
 ## 📖 About

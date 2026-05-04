@@ -8,7 +8,6 @@ kaboom({
 
 // 2. Load Assets
 loadSprite("wizard", "./assets/wizard-final.png");
-loadSound("theme", "./assets/music.mp3");
 loadSprite("robot", "./assets/npc.png");
 
 // 3. Define the Main Scene
@@ -24,33 +23,6 @@ scene("main", () => {
         scale(0.5), // Make the pixel art nice and big
         "player"
     ]);
-
-    // -- THE THEME ---
-    const music = play("theme", {
-        loop: true,   // Loop forever
-        volume: 0.5,  // 50% volume (don't blast their ears)
-        paused: true  // Start paused to satisfy browser rules
-    });
-
-    let userMuted = false; // Track if user specifically turned it off
-    const muteBtn = document.getElementById("mute-btn");
-
-    if (muteBtn) {
-        muteBtn.onclick = () => {
-            userMuted = !userMuted; // Toggle status
-            
-            if (userMuted) {
-                music.paused = true; // Stop the music
-                muteBtn.innerText = "🔇 Music: OFF";
-            } else {
-                music.paused = false; // Resume the music
-                if (!music.paused) music.play();
-                muteBtn.innerText = "🔊 Music: ON";
-            }
-            // Remove focus from button so spacebar doesn't trigger click again
-            muteBtn.blur(); 
-        };
-    }
 
     // Camera Follow
     player.onUpdate(() => {
@@ -214,13 +186,7 @@ scene("main", () => {
 
     // --- MOVEMENT LOGIC ---
     const SPEED = 350;
-
-    onKeyPress(() => {
-        if (music.paused) {
-            music.play();
-        }
-    });
-
+    
     onKeyDown("left", () => {
         player.move(-SPEED, 0);
         player.flipX = false; // Face left
